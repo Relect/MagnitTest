@@ -1,7 +1,7 @@
 import java.sql.*;
 
 
-public class service implements java.io.Serializable{
+public class TestService implements java.io.Serializable{
     private String urldb;
     private String username;
     private String password;
@@ -39,7 +39,7 @@ public class service implements java.io.Serializable{
         this.password = password;
     }
 
-    public service() {}
+    public TestService() {}
 
     public void createTestTable() throws SQLException {
         try {
