@@ -19,7 +19,8 @@ public class StaxStreamProcessor implements AutoCloseable{
         if (reader != null) {
             try {
                 reader.close();
-            } catch (XMLStreamException e) {// empty
+            } catch (XMLStreamException e) {
+                e.printStackTrace();
             }
         }
     }

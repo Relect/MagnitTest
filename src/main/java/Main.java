@@ -59,6 +59,7 @@ public class Main {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File("C:\\1.xml"));
             transformer.transform(source, result);
+            System.out.println("file C:\\1.xml create!");
 
 
             TransformerFactory factory = TransformerFactory.newInstance();
@@ -66,7 +67,7 @@ public class Main {
             Transformer transformer1 = factory.newTransformer(xslt);
             Source xml = new StreamSource(new File("C:\\1.xml"));
             transformer1.transform(xml, new StreamResult(new File("C:\\2.xml")));
-            
+            System.out.println("file C:\\2.xml create!");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
