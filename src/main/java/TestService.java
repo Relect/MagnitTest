@@ -47,7 +47,7 @@ public class TestService implements java.io.Serializable{
             String query = "Drop table IF EXISTS TEST;";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.execute();
-            query = "Create table IF NOT EXISTS TEST (id int(11) auto_increment primary key not null);";
+            query = "Create table IF NOT EXISTS TEST (id int(11) auto_increment primary key not null, FIELD int(11));"; //
             Statement st2 = conn.createStatement();
             st2.execute(query);
         } catch (Exception e) {
@@ -55,12 +55,13 @@ public class TestService implements java.io.Serializable{
         }
     }
 
-    public void saveTestTableN() {
+    public void saveTestTableN() throws SQLException {
         try {
             Connection conn = DriverManager.getConnection(urldb, username, password);
-            String query = "Insert INTO TEST values (id)";
+            String query = "Insert INTO TEST values (id, ?)";
             PreparedStatement pst = conn.prepareStatement(query);
-            for (int i = 0; i < N; i++){
+            for (int i = 0; i < N; i++) {
+                pst.setInt(1, i+1);
                 pst.execute();
             }
         } catch (SQLException e) {
@@ -71,7 +72,7 @@ public class TestService implements java.io.Serializable{
     public int readTestTableN() throws SQLException{
         try {
             Connection conn = DriverManager.getConnection(urldb, username, password);
-            String query = "SELECT * FROM TEST ORDER BY id DESC LIMIT 1";
+            String query = "SELECT FIELD FROM TEST ORDER BY FIELD DESC LIMIT 1";
             PreparedStatement pst = conn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             if ((rs.next())) {
@@ -81,6 +82,16 @@ public class TestService implements java.io.Serializable{
             e.printStackTrace();
         }
         return N;
+    }
+
+    @Override
+    public String toString() {
+        return "TestService{" +
+                "urldb='" + urldb + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", N=" + N +
+                '}';
     }
 
 }
